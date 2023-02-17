@@ -56,12 +56,24 @@ int recupere(const Liste* liste, int n)
 
 int cherche(const Liste* liste, int valeur)
 {
+    Noeud* current;
+    current = liste->premier;
+    int itterateur = 1;
+    while (current->suivant != nullptr) {
+        if (current->donnee == valeur) {
+            return itterateur;
+        }
+        itterateur++;
+    }
     return -1;
 }
 
 void stocke(Liste* liste, int n, int valeur)
 {
-
+    for(int i = 0; i<n; i++) {
+        liste->premier = liste->premier->suivant;
+    }
+    liste->premier->donnee = valeur;
 }
 
 void ajoute(DynaTableau* tableau, int valeur)
