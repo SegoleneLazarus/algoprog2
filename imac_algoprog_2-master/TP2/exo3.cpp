@@ -12,9 +12,23 @@
 const int tailleTb = 8;
 
 void bubbleSort(int toSort[]){
-	// bubbleSort
+	bool comtuveu = true;
+	int i=0;
+	while(comtuveu){
+		comtuveu = false;
+		for(int k=0;k<tailleTb;k++){
+			i=k;
+			while(toSort[i]>toSort[i+1]){
+				int n = toSort[i];
+				toSort[i] = toSort[i+1];
+				toSort[i+1] = n;
+				i++;
+				comtuveu = true;
+			}
+		}
+	}	
+	
 }
-
 
 int main(int argc, char *argv[])
 {
