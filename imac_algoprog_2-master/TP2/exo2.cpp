@@ -7,29 +7,41 @@
 #include <random>
 // #include "tp2.h"
 
+const int tailleTb = 8;
+
 // MainWindow* w=nullptr;
 void insertionSort(int toSort[]){
-	// Array& sorted=w->newArray(toSort.size());
+	int atrier;
+    bool flagplace;
+	int Sorted[tailleTb];
+    for (int i=0;i<tailleTb;i++)
+    {
+        flagplace=false;
+        atrier=toSort[i];
+        for (int k=0;k<i;k++)
+        {
+            if (atrier<Sorted[k])
+            {
+                for (int f=tailleTb-2;f>=k;f--)
+                {
+                    Sorted[f+1]=Sorted[f];
+                }
+                Sorted[k]=atrier;
+                flagplace=true;
+                break;
+            }
 
-	// // insertion sort from toSort to sorted
-	
-	// toSort=sorted; // update the original array
+        }
+        if(flagplace==false)
+            {
+                Sorted[i]=atrier;
+            }
+    }
+    for(int i=0;i<tailleTb;i++){
+        toSort[i]=Sorted[i];
+    }
 }
 
-void insertionSort(int toSort[]){
-	
-}
-
-// int main(int argc, char *argv[])
-// {
-// 	QApplication a(argc, argv);
-//     uint elementCount=15; // number of elements to sort
-//     MainWindow::instruction_duration = 100; // delay between each array access (set, get, insert, ...)
-//     w = new TestMainWindow(insertionSort); // window which display the behavior of the sort algorithm
-// 	w->show();
-
-// 	return a.exec();
-// }
 
 int main(int argc, char *argv[])
 {

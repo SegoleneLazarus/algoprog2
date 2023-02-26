@@ -1,23 +1,40 @@
-#include <QApplication>
+// #include <QApplication>
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
 
-#include "tp2.h"
+#include <random>
+// #include "tp2.h"
 
-MainWindow* w=nullptr;
+// MainWindow* w=nullptr;
 
+const int tailleTb = 8;
 
-void bubbleSort(Array& toSort){
+void bubbleSort(int toSort[]){
 	// bubbleSort
 }
 
 
 int main(int argc, char *argv[])
 {
-	QApplication a(argc, argv);
-	uint elementCount=20;
-	MainWindow::instruction_duration = 100;
-	w = new TestMainWindow(bubbleSort);
-	w->show();
+	srand((unsigned)time(NULL));
+	int tab[tailleTb];
+ 
 
-	return a.exec();
+    for(int i=0;i<tailleTb;i++){
+        tab[i]=rand()%10;
+    }
+
+    for(int i=0;i<tailleTb;i++){
+        std::cout << tab[i] << "\n";
+    }
+
+    bubbleSort(tab);
+
+    std::cout << "hahahahaha" << "\n";
+
+    for(int i=0;i<tailleTb;i++){
+        std::cout << tab[i] << "\n";
+    }
 }
