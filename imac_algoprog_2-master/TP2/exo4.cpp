@@ -1,38 +1,68 @@
-#include <QApplication>
+// #include <QApplication>
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
+#include <random>
+// #include "tp2.h"
+// MainWindow* w=nullptr;
 
-#include "tp2.h"
+const int tailleTb = 8;
+int taillePt = tailleTb;
+int tailleGt = tailleTb;
 
 
-MainWindow* w=nullptr;
-
-void recursivQuickSort(Array& toSort, int size)
-{
-	// stop statement = condition + return (return stop the function even if it does not return anything)
+void recursivQuickSort(int toSort[], int size){
+	int pivot = toSort[0];
 	
-	Array& lowerArray = w->newArray(size);
-	Array& greaterArray= w->newArray(size);
-	int lowerSize = 0, greaterSize = 0; // effectives sizes
+	for(int k=1;k<tailleTb;k++){
+		if(toSort[k]<pivot){
+			int lowers[taillePt] = toSort[k];
+			taillePt++;
+		}
+		else{
+			int greaters[taillePt] = toSort[k];
+			tailleGt++;
+		}
+	}
 
-	// split
+	recursivQuickSort(lowers, lowers.size());
+	recursivQuickSort(greaters, greaters.size());
+
+	for(int i=0;i<taillePt;i++){
+		toSort[i] = lowers[i];
+	}
+
+	toSort[taillePt] = pivot;
+
+	int temp = taillePt+1;
+
+	for(temp;temp<tailleTb;temp++){
+		toSort[i] = greaters[i];
+	}
+
 	
-	// recursiv sort of lowerArray and greaterArray
-
-	// merge
 }
-
-void quickSort(Array& toSort){
-	recursivQuickSort(toSort, toSort.size());
-}
-
 
 int main(int argc, char *argv[])
 {
-	QApplication a(argc, argv);
-	uint elementCount=20;
-	MainWindow::instruction_duration = 50;
-    w = new TestMainWindow(quickSort);
-	w->show();
+	srand((unsigned)time(NULL));
+	int tab[tailleTb];
+ 
 
-	return a.exec();
+    for(int i=0;i<tailleTb;i++){
+        tab[i]=rand()%10;
+    }
+
+    for(int i=0;i<tailleTb;i++){
+        std::cout << tab[i] << "\n";
+    }
+
+    bubbleSort(tab);
+
+    std::cout << "hahahahaha" << "\n";
+
+    for(int i=0;i<tailleTb;i++){
+        std::cout << tab[i] << "\n";
+    }
 }
