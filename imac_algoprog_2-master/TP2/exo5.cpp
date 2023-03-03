@@ -1,18 +1,20 @@
-#include <QApplication>
+// #include <QApplication>
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
-#include "tp2.h"
+#include <random>
+#include <vector>
 
-MainWindow* w=nullptr;
+void merge(std::vector<int>& first, std::vector<int>& second, std::vector<int>& result);
 
-void merge(Array& first, Array& second, Array& result);
-
-void splitAndMerge(Array& origin)
+void splitAndMerge(std::vector<int>& origin)
 {
 	// stop statement = condition + return (return stop the function even if it does not return anything)
 
 	// initialisation
-	Array& first = w->newArray(origin.size()/2);
-	Array& second = w->newArray(origin.size()-first.size());
+	std::vector<int>& first;
+	std::vector<int>& second;
 	
 	// split
 
@@ -21,22 +23,35 @@ void splitAndMerge(Array& origin)
 	// merge
 }
 
-void merge(Array& first, Array& second, Array& result)
+void merge(std::vector<int>& first, std::vector<int>& second, std::vector<int>& result)
 {
 
 }
 
-void mergeSort(Array& toSort)
+void mergeSort(std::vector<int>& toSort)
 {
     splitAndMerge(toSort);
 }
 
 int main(int argc, char *argv[])
 {
-	QApplication a(argc, argv);
-	MainWindow::instruction_duration = 50;
-    w = new TestMainWindow(mergeSort);
-	w->show();
+	srand((unsigned)time(NULL));
+	std::vector<int> tab;
+ 
 
-	return a.exec();
+    for(int i=0;i<tailleTb;i++){
+        tab.push_back(rand()%10);
+    }
+
+    for(int i=0;i<tailleTb;i++){
+        std::cout << tab[i] << "\n";
+    }
+
+    recursivQuickSort(tab,tab.size());
+
+    std::cout << "hahahahaha" << "\n";
+
+    for(int i=0;i<tailleTb;i++){
+        std::cout << tab[i] << "\n";
+    }
 }
