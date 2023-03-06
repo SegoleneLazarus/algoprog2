@@ -1,24 +1,29 @@
-#include "tp1.h"
-#include <QApplication>
+// #include "tp1.h"
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <random>
+#include <vector>
 #include <time.h>
 
-#define return_and_display(result) return _.store(result);
 
-int fibonacci(int value)
+int fibonacci(int n)
 {
-    Context _("fibonacci", value); // do not care about this, it allow the display of call stack
+    if(n==0){
+        return 0;
+    }
+    if(n==1){
+        return 1;
+    }
+    else{
+        return (fibonacci(n-1)) + (fibonacci(n-2));
+    }
 
-    // your code
-
-    return_and_display(value);
+    
 }
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);  // create a window manager
-    MainWindow::instruction_duration = 400;  // make a pause between instruction display
-    MainWindow* w = new FibonacciWindow(fibonacci); // create a window for this exercice
-    w->show(); // show exercice
-
-    return a.exec(); // main loop while window is opened
+    std::cout << fibonacci(6) << "\n";
 }
