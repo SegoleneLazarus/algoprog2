@@ -9,23 +9,28 @@
 
 #define return_and_display(result) return _.store(result);
 
-void allEvens(Array& evens, Array& array, int evenSize, int arraySize)
+void allEvens(int evens[], int array[], int evenSize, int arraySize)
 {
-    Context _("allEvens", evenSize, arraySize); // do not care about this, it allow the display of call stack
+    
+    // if(arraySize==0){
+    //     return -1;
+    // }
 
-    // your code
+    // dans array, vérfier si un nombre est pair
+    // pour cela : n%2 = 0
+    // if(array[arraySize-1] % 2 == 0)
+    // si c'est égal à 0, alors on remplit evens
+    // insert(index,value)
+    // return allEvens()
+    
 
     return;
 }
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);  // create a window manager
-    MainWindow::instruction_duration = 400;  // make a pause between instruction display
-    MainWindow* w = new AllEvensWindow(allEvens); // create a window for this exercice
-    w->show(); // show exercice
+    
 
-    return a.exec(); // main loop while window is opened
 }
 
 
