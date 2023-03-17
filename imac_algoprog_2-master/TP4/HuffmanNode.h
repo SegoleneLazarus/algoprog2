@@ -6,7 +6,7 @@
 #include "binarytree.h"
 #include "array.h"
 
-struct HuffmanNode : public Node
+struct HuffmanNode
 {
     HuffmanNode* left;
     HuffmanNode* right;
@@ -38,11 +38,6 @@ struct HuffmanNode : public Node
     void fillCharactersArray(HuffmanNode** nodes_for_chars);
 
 
-    virtual ~HuffmanNode() {}
-    virtual QString toString() const override
-        {return QString("%1:\n%2").arg(QString(character)).arg(frequences);}
-    Node* get_left_child() const override {return left;};
-    Node* get_right_child() const override {return right;};
 };
 
 
