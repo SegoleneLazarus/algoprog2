@@ -17,8 +17,10 @@ std::vector<string> names(
     "Fanny", "Jeanne", "Elo"
 });
 
-unsigned long int hash(string key)
-{
+unsigned long int hash(string key){
+    // longueur de la chaine
+    // - de la [position du truc]-1
+    // = exposant de ta base
 }
 
 struct MapNode
@@ -41,10 +43,6 @@ struct MapNode
         this->left = this->right = nullptr;
     }
 
-    /**
-     * @brief insertNode insert a new node according to the key hash
-     * @param node
-     */
     void insertNode(MapNode* node)
     {
 
@@ -63,21 +61,11 @@ struct Map
         this->root = nullptr;
     }
 
-    /**
-     * @brief insert create a node and insert it to the map
-     * @param key
-     * @param value
-     */
     void insert(string key, int value)
     {
 
     }
 
-    /**
-     * @brief get return the value of the node corresponding to key
-     * @param key
-     * @return
-     */
     int get(string key)
     {
         return -1;
