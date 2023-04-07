@@ -1,11 +1,22 @@
-#include "tp6.h"
-#include <QApplication>
 #include <time.h>
+#include "../lib/graph.h"
 
-MainWindow* w = nullptr;
 
 void Graph::buildFromAdjenciesMatrix(int **adjacencies, int nodeCount)
 {
+	for(int i=0 ; i<nodeCount ;i++)
+    {
+        this->appendNewNode(new GraphNode(i));
+    }
+    for(int i=0 ; i<nodeCount ; i++)
+    {
+        for(int j=0 ; j<nodeCount ; j++){
+            if(adjacencies[j][i]!=0)
+            {
+                this->nodes[i]->appendNewEdge(this->nodes[j],adjacencies[j][i]);
+            }
+        }
+    }
 	/**
 	  * Make a graph from a matrix
 	  * first create all nodes, add it to the graph then connect them
@@ -47,10 +58,17 @@ bool Graph::detectCycle(GraphNode *first, bool visited[])
 
 int main(int argc, char *argv[])
 {
-	QApplication a(argc, argv);
-	MainWindow::instruction_duration = 150;
-	w = new GraphWindow();
-	w->show();
+	int n=7;
+    int** matrix = new int*[n];
+    for (int i=0; i<n; ++i)
+	{
+        matrix[i] = new int[n];
+        for (int j=0; j<n; ++j)
+		{
+			matrix[i][j] = (rand() % 300 - 230) / 2;
+			if (matrix[i][j] < 0)
+				matrix[i][j] = 0;
+		}
+	}
 
-	return a.exec();
 }
