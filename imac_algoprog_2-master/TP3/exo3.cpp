@@ -1,14 +1,16 @@
-#include "mainwindow.h"
-#include "tp3.h"
-#include <QApplication>
+// #include "tp1.h"
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <random>
+#include <vector>
 #include <time.h>
 #include <stack>
 #include <queue>
-
-MainWindow* w = nullptr;
 using std::size_t;
 
-struct SearchTreeNode : public Node
+struct SearchTreeNode
 {    
     SearchTreeNode* left;
     SearchTreeNode* right;
@@ -16,30 +18,68 @@ struct SearchTreeNode : public Node
 
     void initNode(int value)
     {
-        // init initial node without children
+        this->value = value;
+        this->left = nullptr;
+        this->right = nullptr;
     }
 
 	void insertNumber(int value) {
-        // create a new node and insert it in right or left child
+        if (value < this->value && this->left == nullptr){
+            this->left = new SearchTreeNode(value);
+        }
+        else if (value > this->value && this->right == nullptr){
+            this->right = new SearchTreeNode(value);;
+        }
+        else if (value > this->left->value){
+            this->right->insertNumber(value);
+        }
+        else this->left->insertNumber(value);
     }
 
 	uint height() const	{
-        // should return the maximum height between left child and
-        // right child +1 for itself. If there is no child, return
-        // just 1
-        return 1;
+
+        int heightL = 0;
+        int heightR = 0;
+
+        if(this->left==nullptr && this->right==nullptr){
+            return 1;
+        }
+        if(this->left != nullptr){
+            heightL = this->left.height();
+        }
+        if(this->right != nullptr){
+            heightR = this->right.height();
+        }
+        
+        return 1+std::max(heightL + heightR);
+        
     }
 
 	uint nodesCount() const {
-        // should return the sum of nodes within left child and
-        // right child +1 for itself. If there is no child, return
-        // just 1
-        return 1;
+        int heightL = 0;
+        int heightR = 0;
+
+        if(this->left==nullptr && this->right==nullptr){
+            return 1;
+        }
+        if(this->left != nullptr){
+            heightL = this->left.nodesCount();
+        }
+        if(this->right != nullptr){
+            heightR = this->right.nodesCount();
+        }
+        
+        return 1+heightL+heightR;
 	}
 
 	bool isLeaf() const {
-        // return True if the node is a leaf (it has no children)
-        return false;
+        if(this->left==nullptr && this->right==nullptr){
+            return true;
+        }
+       else{
+            return false;
+       }
+        
 	}
 
 	void allLeaves(Node* leaves[], uint& leavesCount) {
@@ -72,7 +112,7 @@ struct SearchTreeNode : public Node
         left = right = NULL;
     }
 
-    SearchTreeNode(int value) : Node(value) {initNode(value);}
+    SearchTreeNode(int value) {initNode(value);}
     ~SearchTreeNode() {}
     int get_value() const {return value;}
     Node* get_left_child() const {return left;}
@@ -85,10 +125,5 @@ Node* createNode(int value) {
 
 int main(int argc, char *argv[])
 {
-	QApplication a(argc, argv);
-	MainWindow::instruction_duration = 200;
-    w = new BinarySearchTreeWindow<SearchTreeNode>();
-	w->show();
-
-	return a.exec();
+	
 }
