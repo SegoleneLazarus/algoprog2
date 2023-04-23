@@ -8,6 +8,8 @@
 #include <time.h>
 #include <stack>
 #include <queue>
+#include <cstdint>
+
 using std::size_t;
 
 struct SearchTreeNode
@@ -36,7 +38,7 @@ struct SearchTreeNode
         else this->left->insertNumber(value);
     }
 
-	uint height() const	{
+	uint64_t height() const	{
 
         int heightL = 0;
         int heightR = 0;
@@ -45,17 +47,17 @@ struct SearchTreeNode
             return 1;
         }
         if(this->left != nullptr){
-            heightL = this->left.height();
+            heightL = this->left->height();
         }
         if(this->right != nullptr){
-            heightR = this->right.height();
+            heightR = this->right->height();
         }
         
-        return 1+std::max(heightL + heightR);
+        return 1+std::max(heightL, heightR);
         
     }
 
-	uint nodesCount() const {
+	uint64_t nodesCount() const {
         int heightL = 0;
         int heightR = 0;
 
@@ -63,10 +65,10 @@ struct SearchTreeNode
             return 1;
         }
         if(this->left != nullptr){
-            heightL = this->left.nodesCount();
+            heightL = this->left->nodesCount();
         }
         if(this->right != nullptr){
-            heightR = this->right.nodesCount();
+            heightR = this->right->nodesCount();
         }
         
         return 1+heightL+heightR;
@@ -82,25 +84,78 @@ struct SearchTreeNode
         
 	}
 
-	void allLeaves(Node* leaves[], uint& leavesCount) {
+	void allLeaves(SearchTreeNode* leaves[], uint64_t& leavesCount) {
+        if(this->isLeaf()==true){
+            leaves[leavesCount]==this;
+            leavesCount++;
+        }
         // fill leaves array with all leaves of this tree
 	}
 
-	void inorderTravel(Node* nodes[], uint& nodesCount) {
+	void inorderTravel(SearchTreeNode* nodes[], uint64_t& nodesCount) {
+        // fils gauche
+        if(this->left != nullptr){
+              this->left->inorderTravel(nodes, nodesCount);
+        }
+        // parent
+        nodes[nodesCount] == this;
+        nodesCount++;
+        // fils droit
+        if (this->right != nullptr)
+        {
+            this->right->inorderTravel(nodes, nodesCount);
+        }
+
         // fill nodes array with all nodes with inorder travel
 	}
 
-	void preorderTravel(Node* nodes[], uint& nodesCount) {
+	void preorderTravel(SearchTreeNode* nodes[], uint64_t& nodesCount) {
+        // parent
+        nodes[nodesCount] == this;
+        nodesCount++;
+        // fils gauche
+        if(this->left != nullptr){
+              this->left->inorderTravel(nodes, nodesCount);
+        }
+        // fils droit
+        if (this->right != nullptr)
+        {
+            this->right->inorderTravel(nodes, nodesCount);
+        }
         // fill nodes array with all nodes with preorder travel
 	}
 
-	void postorderTravel(Node* nodes[], uint& nodesCount) {
+	void postorderTravel(SearchTreeNode* nodes[], uint64_t& nodesCount) {
+        // fils gauche
+        if(this->left != nullptr){
+              this->left->inorderTravel(nodes, nodesCount);
+        }
+        // fils droit
+        if (this->right != nullptr)
+        {
+            this->right->inorderTravel(nodes, nodesCount);
+        }
+        // parent
+        nodes[nodesCount] == this;
+        nodesCount++;
         // fill nodes array with all nodes with postorder travel
 	}
 
-	Node* find(int value) {
+	SearchTreeNode* find(int value) {
+        if(value == this->value){
+            return this; 
+        }
+        else if(this->left != nullptr){
+            return this->left->find(value);
+        }
+        else if(this->right != nullptr){
+            return this->right->find(value);
+        }
+        else{
+            return nullptr;
+        }
         // find the node containing value
-		return nullptr;
+		
 	}
 
     void reset()
@@ -115,15 +170,28 @@ struct SearchTreeNode
     SearchTreeNode(int value) {initNode(value);}
     ~SearchTreeNode() {}
     int get_value() const {return value;}
-    Node* get_left_child() const {return left;}
-    Node* get_right_child() const {return right;}
+    SearchTreeNode* get_left_child() const {return left;}
+    SearchTreeNode* get_right_child() const {return right;}
 };
 
-Node* createNode(int value) {
+SearchTreeNode* createNode(int value) {
     return new SearchTreeNode(value);
 }
 
+// à changer car j'ai copié mais je voulais juste vérifier que ça fonctionnait rapidement car j'ai envie de dormir
+void printTree(SearchTreeNode* root) {
+    if (root == NULL)
+        return;
+    std::cout << root->get_value() << " ";
+    printTree(root->get_left_child());
+    printTree(root->get_right_child());
+}
+
+
 int main(int argc, char *argv[])
 {
-	
+	SearchTreeNode* root = createNode(5);
+    root->insertNumber(3);
+    root->insertNumber(7);
+    printTree(root);
 }
