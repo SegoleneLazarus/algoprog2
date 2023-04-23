@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string>
 #include <vector>
+#include <cmath>
 
 
 using std::size_t;
@@ -18,6 +19,12 @@ std::vector<string> names(
 });
 
 unsigned long int hash(string key){
+    int cpt = 0;
+    unsigned long int value_hash = 0;
+
+    while(key[cpt] != '\0'){
+        value_hash += key[cpt]* std::pow(128,cpt);
+    }
     // longueur de la chaine
     // - de la [position du truc]-1
     // = exposant de ta base
