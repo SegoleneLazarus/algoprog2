@@ -35,11 +35,27 @@ void ajoute(Liste* liste, int valeur)
     nv->donnee = valeur;
     nv->suivant = liste->premier;
     liste->premier = nv;
+
+    Noeud* dernier = liste->premier;
+
+    if(dernier != nullptr){
+        while (dernier->suivant != nullptr)
+        {   dernier = dernier->suivant; }
+        dernier->suivant = nv;
+    }
+    else{
+        liste->premier = nv;
+    }
 }
 
 void affiche(const Liste* liste)
 {
+    Noeud *nv = liste->premier;
 
+    while(nv->suivant != nullptr){
+        std::cout << nv->donnee <<endl;
+        nv = nv->suivant;
+    }
 }
 
 int recupere(const Liste* liste, int n)
@@ -78,7 +94,10 @@ void stocke(Liste* liste, int n, int valeur)
 
 void ajoute(DynaTableau* tableau, int valeur)
 {
-
+    if(tableau->taille == tableau->capacite){
+        tableau->capacite = tableau->capacite+5;
+        
+    }
 }
 
 
