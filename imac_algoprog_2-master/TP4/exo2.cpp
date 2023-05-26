@@ -70,6 +70,15 @@ void insertHeapNode(std::vector<HuffmanNode*> heap, int heapSize, HuffmanNode* n
 
     // Your code
     int i = heapSize;
+    int i = heapSize-1;
+	heap.push_back(newNode);
+    
+	while(i>0 && this->heap[i] > this->heap[(i-1)/2]){
+			int swap = this->heap[(i-1)/2];
+			this->heap[(i-1)/2] = this->heap[i];
+			this->heap[i] = swap;
+			i = (i-1)/2;
+	}
 
 }
 
@@ -95,7 +104,20 @@ void heapify(std::vector<HuffmanNode*> HuffmanNod, int heapSize, int nodeIndex)
       * you can use `this->swap(firstIndex, secondIndex)`
      **/
     // Your code
+        int i = nodeIndex;
+		int largest = nodeIndex;
 
+		
+		if(largest < this->tab[rightChild(largest)]){
+			largest = rightChild(largest);
+		}
+		if(largest < this->tab[leftChild(largest)]){
+			largest = leftChild(largest);
+		}
+		if(nodeIndex!=i){
+		exchange(HuffmanNode,nodeIndex,i);
+		heapify(HuffmanNode,heapSize,i);
+		}
 }
 
 
