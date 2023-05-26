@@ -1,4 +1,4 @@
-// #include "tp1.h"
+#include "tp1.h"
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
@@ -25,12 +25,12 @@ int isMandelbrot(Point z, int n, Point point){
     }
 
     return 0;
-    return 0;
 }
 
 int main(int argc, char *argv[])
 {
     std::cout << isMandelbrot() << "\n";
+    //fréro je n'ai QT je sais pas comment on fait bizou
 }
 
 
