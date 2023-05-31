@@ -30,6 +30,19 @@ void Graph::deepTravel(GraphNode *first, GraphNode *nodes[], int &nodesSize, boo
 	/**
 	  * Fill nodes array by travelling graph starting from first and using recursivity
 	  */
+	visited[first->value] = true; 
+									
+	Edge* edge = first->edges;
+	nodes[nodesSize] = first;
+	nodesSize++;
+
+	while (edge != nullptr){
+		if (visited[first->edges->destination->value] != true){
+			deepTravel(edge -> destination, nodes, nodesSize, visited);
+			edge = edge -> next;
+		}
+	}
+
 
 }
 
