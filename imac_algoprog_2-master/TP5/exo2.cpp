@@ -25,6 +25,8 @@ unsigned long int hash(string key){
     while(key[cpt] != '\0'){
         value_hash += key[cpt]* std::pow(128,cpt);
     }
+
+    return value_hash;
     // longueur de la chaine
     // - de la [position du truc]-1
     // = exposant de ta base
@@ -52,6 +54,19 @@ struct MapNode
 
     void insertNode(MapNode* node)
     {
+        // todo
+        if (this->key_hash > node->key_hash && this->left == nullptr) {
+            this->left = node;
+        }
+        else if (this->key_hash > node->key_hash) {
+            this->left->insertNode(node);
+        }
+        else if (this->key_hash < node->key_hash && this->right == nullptr) {
+            this->right = node;
+        }
+        else if (this->key_hash < node->key_hash) {
+            this->right->insertNode(node);
+        }
 
     }
 
@@ -70,11 +85,28 @@ struct Map
 
     void insert(string key, int value)
     {
-
+        if (this->root == nullptr) {
+            this->root = new MapNode(key,value);
+        }
+        else {
+            this->root->insertNode(key,value);
+        }
     }
 
     int get(string key)
     {
+        MapNode* noeud = this->root;
+        while (noeud != nullptr){
+            if (noeud->key == key){
+                return noeud->value;
+            }
+            else if (noeud->key_hash < hash(key)){
+                noeud = noeud->right;
+            }
+            else {
+                noeud = noeud->left;
+            }
+        }
         return -1;
     }
 
