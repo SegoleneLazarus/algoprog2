@@ -6,6 +6,8 @@
 #include <random>
 #include <vector>
 
+const int tailleTb = 8;
+
 void merge(std::vector<int>& first, std::vector<int>& second, std::vector<int>& result);
 
 void splitAndMerge(std::vector<int>& origin)
