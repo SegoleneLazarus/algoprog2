@@ -57,6 +57,11 @@ void Graph::wideTravel(GraphNode *first, GraphNode *nodes[], int &nodesSize, boo
 	 */
 	std::queue<GraphNode*> nodeQueue;
 	nodeQueue.push(first);
+	while(nodeQueue.size() != 0){
+        visited[nodeQueue.front()->value] = true;
+        nodeQueue.pop();
+    }
+
 }
 
 bool Graph::detectCycle(GraphNode *first, bool visited[])
@@ -66,7 +71,20 @@ bool Graph::detectCycle(GraphNode *first, bool visited[])
 	  (the first may not be in the cycle)
 	  Think about what's happen when you get an already visited node
 	**/
+    visited[first->value] = true;
+    Edge* newEdge;
+    for(newEdge = first->edges; newEdge != nullptr; newEdge = newEdge->next){
+        if(!visited[newEdge->destination->value]){
+            if(detectCycle(newEdge->destination, visited)){
+                return true;
+            }
+        }
+        else{
+            return true;
+        }
+    }
     return false;
+
 }
 
 int main(int argc, char *argv[])
